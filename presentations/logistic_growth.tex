@@ -1,0 +1,175 @@
+\documentclass{beamer}
+
+\mode<presentation>
+{
+  \usetheme{default} 
+  \usecolortheme{default} 
+  \usefonttheme{default} 
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{caption}[numbered]
+} 
+
+\usepackage[backend=bibtex, style=numeric, defernumbers=true]{biblatex}
+\addbibresource{bib.bib}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage[italicdiff]{physics}
+% \usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+% \usepackage[T1]{fontenc}
+% \usepackage{lmodern}
+
+% \newtheorem{veta}{Věta}
+% \newtheorem{lema}[veta]{Lemma}
+
+\title{Evolution and dynamics of competing variants of SARS-CoV2}
+% \subtitle{or \\ How I learned to stop worrying and learned to love compartmental modelling}
+\date{\today}
+\author{Christian Berrig \inst{1} \and Rasmus Petersen \inst{1} \and Viggo Andreasen\inst{1}}
+\institute{\inst{1} Department of Science and Environment, Roskilde Universitet}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Overview}
+\tableofcontents
+\end{frame}
+
+\begin{frame}{Motivation:}
+\begin{itemize}
+\item<1-> Understanding evolutionary aspects of disease dynamics.
+\item<2-> Quantifying parameters from primitive model, in the current SARS-CoV2 pandemic.
+\end{itemize}
+\end{frame}
+
+\section{Model analysis}
+\begin{frame}{Description}
+\begin{tikzpicture}
+\input{figs/tikz/compet_SIR.tex}
+\end{tikzpicture}
+\begin{align}
+\dv{}{t}S =& - S \sum_{i \in \mathcal{V}} \beta_{i} I_{i} \\
+\dv{}{t}I_{i} =& \qty(\beta_{i} S - \nu_{i}) I_{i}
+\end{align}
+Model assumes:
+\begin{itemize}
+\item Full cross-immunity between strains.
+\item Non-waning immunity after infection.
+\item Homogeneous population.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Description}
+\begin{align}
+\dv{}{t} I_{i}(t) 
+% =& (\beta_{i} S(t) - \nu_{i}) I_{i}(t) % = \nu_{i} (R_{e, i}(t) - 1) I_{i}(t) 
+=& r_{i}(t) I_{i}(t) \label{eq:diffeq_infected}
+\end{align}
+where:
+\begin{align}
+r_{i}(t) = \nu_{i} (R_{e, i}(t) - 1)
+\quad \text{and} \quad
+R_{e, i}(t) = \frac{\beta_{i} S(t)}{\nu_{i}}
+\end{align}
+$r_{i}(t)$ is a fitness-parameter for $I_{i}$ \cite{Gandon_2009}
+% \includegraphics[width=0.9\textwidth]{figs/model_sisv.png}
+\end{frame}
+
+\begin{frame}{Description}
+Proportion of strain among all cases (sequenced):
+\begin{align}
+p_{i} = \frac{I_{i}(t)}{\sum_{j \in \mathcal{V}}I_{j}}
+\end{align}
+\end{frame}
+
+\begin{frame}{Description}
+\begin{align*}
+\dv{}{t} p_{i}
+=& p_{i} \qty(r_{i}(t) - \sum_{j \in \mathcal{V}} (r_{j}(t) p_{j})) \\
+=& p_{i} \qty(\sum_{j \in \mathcal{V}} ((r_{i}(t) - r_{j}(t)) p_{j})) \\
+=& r_{i}(t) p_{i} \qty(1 - \sum_{j \in \mathcal{V}} \qty(\frac{r_{j}(t)}{r_{i}(t)} p_{j}))
+\end{align*}
+This form is known as the \textbf{Competitive Lotka-Volterra equation} 
+\cite{Smale_1976, Bomze_1983}
+\end{frame}
+
+\begin{frame}{Description}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{figs/all_countries.pdf}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Description}
+Solvable case: 2 strains:
+\begin{align*}
+\dv{}{t} p
+=& p (1-p) \qty(r_{1}(t) - r_{2}(t)) \\
+\end{align*}
+reduces 
+% the \textbf{Competitative Lotka-Volterra eqn.} 
+to the \textbf{logistic eqn.}. \\
+Further, assuming that all strain have identical generation-times:
+\begin{align*}
+\dv{}{t} p
+=& p (1-p) \nu \qty(R_{e, 1}(t) - R_{e, 2}(t)) \\
+\end{align*}
+% citation here for identical gen.times!
+Considering the $50\%$ proportion (mid transition): %, the growth of the curve at this point is:
+\begin{align*}
+\eval{\dv{}{t} p}_{t=t_{\frac{1}{2}}}
+=& \frac{\nu}{4} \qty(R_{e, 1}(t) - R_{e, 2}(t)) \\
+\end{align*}
+thus; the "speed" of the transition at the mid-point is a measure for the difference in contact num. 
+\end{frame}
+
+\begin{frame}{Description}
+Transformation of 2 strains model:
+\begin{align*}
+\ln \qty(\frac{p}{1-p}) =& \ln \qty(\frac{p_{0}}{1-p_{0}}) + \int_{0}^{t} \dd t' \qty(r_{1}(t') - r_{2}(t')) \\
+\end{align*}
+Assuming that all strain have identical generation-times, and that the contact-number constant:
+\begin{align*}
+\ln \qty(\frac{p}{1-p}) =& \ln \qty(\frac{p_{0}}{1-p_{0}}) + \nu \qty(R_{e, 1} - R_{e, 2}) t \\
+\end{align*}
+This gives an affine mapping in which the incline is a measure for the difference in contact numbers.
+\end{frame}
+
+\begin{frame}{Data and model-fits}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{figs/data_fits_Denmark.pdf}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Data and model-fits}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{figs/R_relations.pdf}
+\end{figure}
+\end{frame}
+
+\section{Considerations of interest}
+\begin{frame}
+Considerations of interest:
+\begin{itemize}
+\item<1-> partial crossimmunity; which evolutionary strategies is best?
+\item<2-> heterogenous populations; \\
+% colleages suggest that heterogeneity in infectivity is dependent on heterogeneity in contact pattern. \cite{bjarke et al}
+\item<3-> interventions; are lockdowns and vaccinations creating new nieches for vira?
+% \item<4-> 
+\end{itemize}
+% \uncover<5->{}
+\end{frame}
+
+\begin{frame}%{Bibliography}
+\printbibliography
+\end{frame}
+
+\end{document}
