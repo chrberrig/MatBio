@@ -1,0 +1,86 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{tikz}
+\usepackage[italicdiff]{physics}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[lmargin=3cm, rmargin=3cm]{geometry}
+\usepackage{listings}
+
+\usepackage[style=numeric]{biblatex}
+\addbibresource{bibliography.bib}
+
+\DeclareMathOperator\supp{supp}
+
+\author{Christian Berrig \and Amalia Bogri}
+\title{Week 1: Logistic growth}
+\begin{document}
+
+\maketitle
+
+%\begin{abstract}
+%\end{abstract}
+
+\section*{Model description:}
+The general model for the population growth is tha following:
+\begin{align*}
+\dv{N}{t} =& N r(N, t)
+\end{align*}
+
+where the function $r(N,t)$ is the charecteristic growthrate of the population. 
+We see that if this growthrate is constant, we end up with simple exponential growth. 
+In general it depends on both populationsize and time explicitly, but we can investigate  simple cases in which $r$ depends on only $N$ or or the $t$-dependency is simple:
+
+\subsection{logistic growth equation}
+assuming a linear decline in growth as a function of population-size, that is:
+\begin{align*}
+r(N, t) =& r \qty(1 - \frac{N}{K})
+\end{align*}
+
+we see that the population eqn. becomes:
+\begin{align*}
+\dv{N}{t} =& r N \qty(1 - \frac{N}{K})
+\end{align*}
+which is recognised as the logistic equation.
+This eqn. can be solved analytically, by separation of variables:
+\begin{align*}
+\dv{N}{t} =& r N \qty(1 - \frac{N}{K}) \\
+\frac{1}{N \qty(1 - \frac{N}{K})} \dd N =& r \dd t \\
+% \frac{1}{N} + \frac{1}{K \qty(1 - \frac{N}{K})} \dd N =& r \dd t \\
+\frac{1}{N} + \frac{1}{\qty(K - N)} \dd N =& r \dd t \\
+\int_{N(0)}^{N(t)} \frac{1}{N} + \frac{1}{\qty(K - N)} \dd N =& \int_{0}^{t} r \dd t \\
+\ln\qty(\frac{N(t)}{K-N(t)}) - \ln\qty(\frac{N(t)}{K-N(t)})  =& r \dd t \\
+\end{align*}
+
+\subsection{rescaling/normal-form of logistic eqn.}
+The logistic equation can be brought into a "normal-form", which is dimension-less, by rescaling:
+\begin{align*}
+\tilde{N} = \frac{N}{K} \Rightarrow& \dv{N}{t} = \dv{N}{\tilde{N}} \dv{\tilde{N}}{t} = K \dv{\tilde{N}}{t} \\
+\tilde{t} = r t \Rightarrow& \dv{\tilde{N}}{t} =  \dv{\tilde{t}}{t} \dv{\tilde{N}}{\tilde{t}} = r  \dv{\tilde{N}}{\tilde{t}}
+\end{align*}
+whereby we find the relation:
+\begin{align*}
+\dv{N}{t} =& r K \dv{\tilde{N}}{\tilde{t}} 
+\end{align*}
+And plugging this into the logistic equation:
+\begin{align*}
+\dv{N}{t} = r K \dv{\tilde{N}}{\tilde{t}} =& r N \qty(1 - \frac{N}{K}) \\
+\dv{\tilde{N}}{\tilde{t}} =& \frac{N}{K} \qty(1 - \frac{N}{K}) \\
+\dv{\tilde{N}}{\tilde{t}} =& \tilde{N} \qty(1 - \tilde{N})
+\end{align*}
+Thus all model parameters have been absorbed by the dimentionless population and dimensionless time.
+
+\subsection{seasonal dependence:}
+An expansion fro the simple logistic model, could be a seasonal dependence on the reproduction. 
+Thus the growth-rate for the reproduction function could be given as before, but with an additional oscillating factor:
+\begin{align*}
+\end{align*}
+
+
+%\appendix
+
+\printbibliography
+
+\end{document}
