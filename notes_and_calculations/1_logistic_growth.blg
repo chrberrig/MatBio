@@ -1,0 +1,9 @@
+[0] Config.pm:304> INFO - This is Biber 2.12
+[0] Config.pm:307> INFO - Logfile is '1_logistic_growth.blg'
+[20] biber:315> INFO - === Mon Sep  6, 2021, 11:45:49
+[37] Biber.pm:371> INFO - Reading '1_logistic_growth.bcf'
+[86] Biber.pm:889> INFO - Found 0 citekeys in bib section 0
+[91] Utils.pm:193> WARN - The file '1_logistic_growth.bcf' does not contain any citations!
+[97] bbl.pm:636> INFO - Writing '1_logistic_growth.bbl' with encoding 'UTF-8'
+[97] bbl.pm:739> INFO - Output to 1_logistic_growth.bbl
+[97] Biber.pm:110> INFO - WARNINGS: 1
