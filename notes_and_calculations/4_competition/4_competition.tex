@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{tikz}
+\usepackage[italicdiff]{physics}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[lmargin=3cm, rmargin=3cm]{geometry}
+\usepackage{listings}
+
+\usepackage[style=numeric]{biblatex}
+\addbibresource{bibliography.bib}
+
+\DeclareMathOperator\supp{supp}
+
+\author{Christian Berrig \and Amalia Bogri \and Jonas Bolduan}
+\title{Week 4: Copetition in context of the chemostat}
+\begin{document}
+
+\maketitle
+
+%\begin{abstract}
+%\end{abstract}
+
+\section*{Model description:}
+The general model for competition is:
+\begin{align*}
+\dv{R_{i}}{t} =& r_{i} \left( K_{i} - R_{i} \right) - \sum_{j} C(i, j) N_{j} \\
+\dv{N_{j}}{t} =& C(i, j) N_{j} - d_{j} N_{j} \\
+\end{align*}
+where the functional response for the consumption function for consumer $N_{j}$ w.r.t. resource $R_{i}$ is given by respectively:
+\begin{align*}
+C(i,j) = \frac{\rho_{j} c_{max}}{\rho_{j} + c_{max}}
+\end{align*}
+and the charecteristic resource consumption is:
+\begin{align*}
+\rho_{j} =& \sum_{i} R_{i} b_{ij} 
+\end{align*}
+for substitutional resources and:
+\begin{align*}
+\rho_{j} =& \min_{i} \left( R_{i} b_{ij} \right)
+\end{align*}
+for essential resources.
+
+
+%\appendix
+
+\printbibliography
+
+\end{document}
