@@ -1,0 +1,88 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{tikz}
+\usepackage[italicdiff]{physics}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[lmargin=3cm, rmargin=3cm]{geometry}
+\usepackage{listings}
+
+\usepackage[style=numeric]{biblatex}
+\addbibresource{bibliography.bib}
+
+\DeclareMathOperator\supp{supp}
+
+\author{Christian Berrig \and Amalia Bogri \and Jonas Bolduan}
+\title{Week 7: Trophic Control}
+\begin{document}
+
+\maketitle
+
+%\begin{abstract}
+%\end{abstract}
+
+\section{Model description: $K$-dependence without predators.}
+\begin{align}
+\dv{N}{t} =& \left[ r \left(1 - \frac{N}{K} \right) - b_{c} C \right] N		\label{dotN_Kdep} \\
+\dv{C}{t} =&  \left( \varepsilon_{c} b_{c} N - d_{c} \right) C			\label{dotC_Kdep}
+\end{align}
+
+the equilibria for this system can be found for the three regions:
+\begin{table}[H]
+\centering
+\begin{tabular}{c | c c}
+Region & $N$ & $C$ \\
+\hline \hline
+Trivial & 0 & 0 \\
+$K < K_{crit}$	& $K$		& 0 \\
+$K > K_{crit}$	& $K_{crit}$	& $\frac{r}{b_{c}} \left( 1 - \frac{K_{crit}}{K} \right)$ \\
+\hline
+\end{tabular}
+\end{table}
+where $K_{crit} = \frac{d_{c}}{\varepsilon_{c} b_{c}}$. This value is found from eq. \ref{dotC_Kdep}.
+The K-dependent equilibrium $K > K_{crit}$, is found from settinbg to zero \ref{dotN_Kdep}.
+
+\section{Model description: $K$-dependence with predators.}
+\begin{align}
+\dv{N}{t} =& \left[ r \left(1 - \frac{N}{K} \right) - b_{c} C \right] N		\label{dotN_Kdep_pred}\\
+\dv{C}{t} =&  \left( \varepsilon_{c} b_{c} N - d_{c} - b_{c} P \right) C 	\label{dotC_Kdep_pred}\\
+\dv{P}{t} =&  \left( \varepsilon_{p} b_{p} C - d_{p} \right) P 			\label{dotP_Kdep_pred}
+\end{align}
+The equilibria for this system can be found as follows:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{c | c c c}
+Region & $N$ & $C$ & $P$ \\
+\hline \hline
+Trivial & 0 & 0 & 0\\
+$K < K_{crit1}$			& $K$								& 0 								& 0\\
+$K_{crit1} < K < K_{crit2}$	& $K_{crit}$							& $\frac{r}{b_{c}} \left( 1 - \frac{K_{crit}}{K} \right)$	& 0\\
+$K_{crit2} < K$			& $K (1 - \frac{b_{c}}{r} \frac{d_{p}}{\varepsilon{p} b_{p}})$	& $\frac{d_{p}}{\varepsilon{p} b_{p}}$				& $K (1 - \frac{b_{c}}{r} \frac{d_{p}}{\varepsilon{p} b_{p}}) \varepsilon_{c} b_{c} - d_{c}$ \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Model description: $K$-dependence with predators.}
+The equations are identical to eq. \label{dotN_Kdep_pred} - \label{dotP_Kdep_pred}.
+The equilibria for this system can be found as follows:
+                                             
+\begin{table}[H]
+\centering
+\begin{tabular}{c | c c c}
+Region & $N$ & $C$ & $P$ \\
+\hline \hline
+Trivial & 0 & 0 & 0\\
+$r < r_{crit}$		& $\frac{d_{c}}{\varepsilon_{c} b_{c}}$						& $\frac{r}{b_{c}} \left( 1 - \frac{1}{K} \frac{d_{c}}{\varepsilon_{c} b_{c}} \right)$ 	& 0\\
+$r_{crit} < r$		& $ K \left(1 - \frac{b_{c}}{r} \frac{d_{p}}{\varepsilon_{p} b_{c}} \right)$	& $\frac{d_{p}}{\varepsilon_{p} b_{c}}$		& $ \frac{\varepsilon_{c} b_{c}}{b_{p}} K \left(1 - \frac{b_{c}}{r} \frac{d_{p}}{\varepsilon_{p} b_{c}} \right) - \frac{d_{c}}{b_{p}} $\\
+\hline
+\end{tabular}
+\end{table}
+
+%\appendix
+
+\printbibliography
+
+\end{document}
